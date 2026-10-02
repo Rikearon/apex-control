@@ -10,7 +10,7 @@ apexctl help
 apexctl info
 ```
 
-`--version` prints the version (`apexctl 0.1.0` at the time of writing). `help` lists
+`--version` prints the version (`apexctl 0.1.0` for the 0.1.0 release; a build from `master` between releases says so with a `-dev` version, such as `0.2.0-dev`). `help` lists
 the commands and their arguments; one developer command, `debugoled`, is left out (see
 [The OLED screen](#the-oled-screen)). `info` prints the firmware, region and layout the
 keyboard reports, and the key counts `apexctl` works with.

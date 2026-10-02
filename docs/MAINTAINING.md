@@ -189,17 +189,17 @@ the links resolve (the download link works only after the first release).
 A release is one tag. CI builds it from the tag; nothing is built on a laptop.
 
 1. **Choose the version** ([Semantic Versioning](https://semver.org/spec/v2.0.0.html);
-   while it is 0.x, a minor bump may change behaviour). The first release is 0.1.0.
+   while it is 0.x, a minor bump may change behaviour). The first release was 0.1.0,
+   on 2026-10-02.
 2. **Set it** in `Sources/ApexKit/Version.swift` (`ApexVersion.current`). This is the
    only place the version lives; `Scripts/version.sh` reads it for everything else.
-   (For 0.1.0 it is already set.)
+   Between releases it carries a `-dev` suffix (step 8): drop it here.
 3. **Finish the changelog.** In `CHANGELOG.md`, rename `## [Unreleased]` to
    `## [X.Y.Z] - YYYY-MM-DD`, add a fresh empty `## [Unreleased]` above it, and
    update the links at the bottom: `[Unreleased]` compares `vX.Y.Z...HEAD`, and add
-   `[X.Y.Z]` pointing at the tag (the first release links to
-   `releases/tag/vX.Y.Z`). For 0.1.0, also change the opening sentence, "The first
-   public release, planned as 0.1.0", to "The first public release", because it
-   becomes the first line of the release notes. A pre-release tag such as
+   `[X.Y.Z]` comparing the previous release with this one (`compare/vA.B.C...vX.Y.Z`).
+   Whatever the section starts with becomes the first lines of the release notes. A
+   pre-release tag such as
    `v0.2.0-rc.1` needs its own heading, `## [0.2.0-rc.1] - YYYY-MM-DD`: the notes are
    looked up by the tag's version, literally.
 4. **Check locally.** `make check test`, and if you like `make package` to build
