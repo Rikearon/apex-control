@@ -765,7 +765,9 @@ struct BindingsView: View {
             return
         }
         let fields = rawCodes.split(whereSeparator: { $0 == " " || $0 == "," }).map(String.init)
-        let codes = fields.compactMap(parseByte)
+        // A closure, not `compactMap(parseByte)`: Swift 6.0 treats that method reference as
+        // throwing ("call can throw"), which later compilers do not.
+        let codes = fields.compactMap { parseByte($0) }
         guard codes.count == fields.count else {
             controller.lastError = "The key codes must be up to four hexadecimal bytes, "
                 + "like “E3 06 00 00”."
