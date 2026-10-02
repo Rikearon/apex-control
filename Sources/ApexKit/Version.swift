@@ -10,5 +10,5 @@
 /// Keep the declaration on a single line — the scripts parse it with `sed`.
 public enum ApexVersion {
     /// `MAJOR.MINOR.PATCH`, optionally followed by `-prerelease` (`0.2.0-rc.1`).
-    public static let current = "0.1.0"
+    public static let current = "0.2.0-dev"
 }
