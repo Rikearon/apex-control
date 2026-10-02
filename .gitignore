@@ -1,0 +1,43 @@
+# SwiftPM / Xcode
+.build/
+.swiftpm/
+*.xcodeproj
+xcuserdata/
+DerivedData/
+
+# Build products (Scripts/build-app.sh -> build/, Scripts/package-release.sh -> dist/)
+build/
+dist/
+
+# macOS
+.DS_Store
+
+# Python bytecode (importing Scripts/check-repo.py from a tool leaves it behind)
+__pycache__/
+*.pyc
+
+# Tool-local settings (Claude Code keeps per-machine permissions here)
+.claude/settings.local.json
+
+# A maintainer's private list for Scripts/check-repo.py (see LOCAL_DENYLIST there)
+.check-denylist
+
+# Never commit signing material or credentials
+*.p12
+*.pem
+*.cer
+*.key
+*.mobileprovision
+.env
+
+# Vendor files and raw captures are not ours to redistribute, and USB captures
+# can contain device serial numbers. Keep them out of the repository.
+vendor/
+*.pcap
+*.pcapng
+pcaps/
+
+# Dumps from `apexctl profile read --out` contain the keyboard's GUID, and `ioreg`
+# listings contain every HID device on the Mac, serial numbers included.
+*.bin
+hid.txt

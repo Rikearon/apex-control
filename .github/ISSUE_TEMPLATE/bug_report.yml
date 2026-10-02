@@ -1,0 +1,110 @@
+name: Bug report
+description: Something does not work the way it should.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. A precise report is the fastest way to a fix.
+        Please read the [troubleshooting guide](https://github.com/Rikearon/apex-control/blob/master/docs/TROUBLESHOOTING.md) first;
+        the common problems are covered there.
+
+        **Do not paste your keyboard's serial number, its GUID, or a raw profile dump.**
+        If you attach an exported profile, open it first: it can contain the path of the
+        OLED image you chose, and so your user name.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Which part is affected?
+      options:
+        - The app (Apex Control)
+        - The command-line tool (apexctl)
+        - The library (ApexKit)
+        - Installing, building or packaging
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, and what did you see?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the Key Bindings pane
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Output of `apexctl --version` and `apexctl info`
+      description: |
+        Please include it for anything to do with the keyboard, the app or `apexctl`; skip it for a
+        documentation or installation problem. Run both in Terminal with the keyboard plugged in and
+        paste the output. If the keyboard is not found, paste the error instead. If you installed only
+        the app, build the CLI with `swift build` or download `apexctl` from the release.
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: Finder, then Get Info on Apex Control shows it. If you built from source, give the commit.
+      placeholder: "0.1.0, or: built from source at 1a2b3c4"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac
+      placeholder: "macOS 15.6, Apple Silicon"
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How did you install it?
+      options:
+        - Downloaded a release (DMG)
+        - Built from source
+        - Something else
+    validations:
+      required: true
+  - type: dropdown
+    id: gg
+    attributes:
+      label: Is SteelSeries GG installed?
+      description: Its background helpers may fight Apex Control for the lighting.
+      options:
+        - Not installed
+        - Installed, not running
+        - Installed and running
+        - Not sure
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, a screen recording, or a sentence about what changed recently.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched the existing issues and this is not a duplicate.
+          required: true
+        - label: I have left out my keyboard's serial number and GUID.
+          required: true

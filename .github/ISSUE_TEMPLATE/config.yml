@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question or share an idea
+    url: https://github.com/Rikearon/apex-control/discussions
+    about: Questions, ideas and show-and-tell belong in Discussions, not issues.
+  - name: Read the troubleshooting guide
+    url: https://github.com/Rikearon/apex-control/blob/master/docs/TROUBLESHOOTING.md
+    about: The common problems (keyboard not found, Reactive lighting, settings that revert) and their fixes.
+  - name: Report a security vulnerability
+    url: https://github.com/Rikearon/apex-control/security/advisories/new
+    about: Report security problems privately. Never in a public issue.

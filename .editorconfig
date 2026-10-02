@@ -1,0 +1,25 @@
+# https://editorconfig.org
+#
+# These describe what the repository already does; Scripts/check-repo.py
+# enforces the parts that are checkable (line endings, tabs, trailing
+# whitespace, final newline).
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{md,yml,yaml,json}]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+# Verbatim third-party licence text; leave it exactly as published.
+[LICENSES/*]
+trim_trailing_whitespace = false
+insert_final_newline = unset

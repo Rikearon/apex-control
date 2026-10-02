@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # GitHub Actions are pinned to full commit SHAs (Scripts/check-repo.py enforces
+  # it). Dependabot keeps those SHAs, and the `# vX.Y.Z` comment beside each,
+  # current. The Swift package has no dependencies, so there is no `swift` entry.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    # Do not adopt a release in its first week: a compromised or broken release is
+    # usually noticed and pulled within days. (Security updates ignore this.)
+    cooldown:
+      default-days: 7
+    # One pull request for all action bumps, not one per action: each pull request runs
+    # up to four macOS jobs, and a free account can run five at once.
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: ci

@@ -1,0 +1,72 @@
+name: Protocol finding
+description: A correction, confirmation or discovery about the keyboard's HID protocol.
+title: "[Protocol]: "
+labels: ["protocol"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The [protocol reference](https://github.com/Rikearon/apex-control/blob/master/docs/PROTOCOL.md)
+        is the most valuable thing this project has, and it only stays trustworthy if claims are checked.
+        A good finding gives the exact bytes, the firmware, and how someone else can reproduce it.
+
+        Please do not include vendor files or code. Short factual data you confirmed on your own
+        keyboard is what we are after: say how you confirmed it.
+  - type: input
+    id: section
+    attributes:
+      label: Which part of PROTOCOL.md does this concern?
+      placeholder: "Key bindings, 'Reading bindings back'"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of finding is it?
+      options:
+        - A correction (the document is wrong)
+        - A confirmation (I reproduced a documented claim)
+        - A new command or behaviour
+        - A difference on another firmware
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Keyboard and firmware
+      placeholder: "Apex Pro TKL Gen 3 (1038:1642), firmware 1.19.7"
+    validations:
+      required: true
+  - type: textarea
+    id: bytes
+    attributes:
+      label: The bytes
+      description: What you sent and what came back, exactly. `apexctl raw query` output works well.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: How can someone reproduce it?
+      description: The commands you ran, in order, and what you concluded from the result.
+    validations:
+      required: true
+  - type: dropdown
+    id: confidence
+    attributes:
+      label: How sure are you?
+      options:
+        - Reproduced several times on hardware
+        - Seen once
+        - Inferred, not tried on hardware
+    validations:
+      required: true
+  - type: checkboxes
+    id: risk
+    attributes:
+      label: Safety
+      options:
+        - label: The commands involved write to flash memory, not only RAM.
+        - label: I have left out serial numbers and GUIDs.
+          required: true

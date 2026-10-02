@@ -1,0 +1,73 @@
+name: Device support
+description: Your keyboard is a different model or firmware, or behaves differently.
+title: "[Device]: "
+labels: ["hardware"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Apex Control supports one keyboard today: the **wired Apex Pro TKL Gen 3, `1038:1642`**.
+        Other models are believed to use different command sets, so this report starts a conversation
+        rather than being a quick fix. See [Compatibility](https://github.com/Rikearon/apex-control/blob/master/docs/COMPATIBILITY.md).
+
+        Everything requested below is read-only. Nothing here changes your keyboard.
+  - type: input
+    id: model
+    attributes:
+      label: Keyboard model
+      placeholder: "Apex Pro TKL Gen 3 (wireless)"
+    validations:
+      required: true
+  - type: input
+    id: ids
+    attributes:
+      label: USB vendor and product id
+      description: |
+        In Terminal: `system_profiler SPUSBHostDataType SPUSBDataType | grep -i -A12 apex | grep -E 'Apex|Vendor ID|Product ID|Product Version'`
+        (it prints no serial number), or open *About This Mac*, then *System Report*, then *USB*.
+        Give the Vendor ID and Product ID.
+      placeholder: "1038:1642"
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+      description: Shown in SteelSeries GG, or by `apexctl info` if your keyboard is supported.
+      placeholder: "1.19.7"
+  - type: textarea
+    id: today
+    attributes:
+      label: What happens with Apex Control today?
+      description: |
+        Only if you have built or installed Apex Control or `apexctl`: is the keyboard found, does
+        anything work, and what does `apexctl info` print? If you have not tried it, say so.
+      render: shell
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        **HID interfaces (optional, but very useful).** In Terminal, run the command below. It prints only the
+        HID interfaces whose vendor id is 4152 (that is `0x1038`, SteelSeries) and drops any line that mentions
+        a serial number or a location id. Nothing is written to a file.
+
+        ```
+        ioreg -r -c IOHIDInterface -l -w0 -d1 | awk '/^\+-o /{if(b ~ /"VendorID" = 4152/) printf "%s", b; b=""} {b=b $0 "\n"} END{if(b ~ /"VendorID" = 4152/) printf "%s", b}' | grep -v -i -E 'serial|locationid|uniqueid|address'
+        ```
+  - type: textarea
+    id: hid
+    attributes:
+      label: Output of the HID interface command
+      description: |
+        Paste it here as text; please do not attach a file. Read it through before you post, and delete anything you
+        do not want public: a serial number or a location id if one slipped through, and the entries for any other
+        SteelSeries device you have plugged in (a mouse or a headset shows up too).
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have left out serial numbers and GUIDs.
+          required: true

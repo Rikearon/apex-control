@@ -1,0 +1,16 @@
+name: Contact a maintainer privately
+description: Only if the private vulnerability report form is unavailable. Put no details here.
+title: "I need to contact a maintainer privately"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This issue is public. Do not put the details of a vulnerability or of a conduct
+        report in it.** Say only that you need a private way to talk, and a maintainer will
+        invite you to a private draft security advisory. If you can, use the private form
+        instead: [report a vulnerability](https://github.com/Rikearon/apex-control/security/advisories/new).
+  - type: input
+    id: topic
+    attributes:
+      label: What is it about, in one word?
+      description: For example "security" or "conduct". Nothing more.

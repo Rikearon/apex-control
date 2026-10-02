@@ -1,0 +1,52 @@
+name: Feature request
+description: Suggest an improvement or a new capability.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before you write this up, look at the [feature gap analysis](https://github.com/Rikearon/apex-control/blob/master/docs/FEATURE-GAP-ANALYSIS.md#f-prd-index):
+        it lists every feature already planned, each with its own PRD. If yours is there, comment on
+        that PRD's topic instead of opening a duplicate.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the problem, not the solution. Why can you not do it today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you have considered
+  - type: input
+    id: prd
+    attributes:
+      label: Related PRD
+      description: If this is already planned, which one?
+      placeholder: "PRD-04"
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Does it need something the keyboard may not support?
+      description: Anything the keyboard's firmware cannot do, Apex Control cannot do either.
+      options:
+        - No, it is purely host-side (on the Mac)
+        - Yes, it needs a keyboard capability
+        - I am not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you help?
+      options:
+        - label: I could test it on my keyboard.
+        - label: I could work on it myself.

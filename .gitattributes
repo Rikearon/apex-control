@@ -1,0 +1,8 @@
+# The repository is LF everywhere, whatever a contributor's git is configured to.
+* text=auto eol=lf
+
+# Binary assets: never diff or merge them as text.
+*.png binary
+*.icns binary
+*.dmg binary
+*.zip binary
