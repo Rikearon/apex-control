@@ -9,7 +9,9 @@ freeze.
 
 ## [Unreleased]
 
-The first public release, planned as 0.1.0.
+## [0.1.0] - 2026-10-02
+
+The first public release.
 
 ### Added
 
@@ -76,4 +78,5 @@ The first public release, planned as 0.1.0.
   runs the tests of the checks themselves. A maintainer's private word list can be
   added with `CHECK_DENYLIST`; the check says whether it applied it.
 
-[Unreleased]: https://github.com/Rikearon/apex-control/commits/master
+[Unreleased]: https://github.com/Rikearon/apex-control/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Rikearon/apex-control/releases/tag/v0.1.0
