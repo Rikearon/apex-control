@@ -170,14 +170,15 @@ gh api repos/$REPO/environments/release --jq '[.protection_rules[].type]'
 gh api repos/$REPO/actions/permissions/workflow --jq '[.default_workflow_permissions, .can_approve_pull_request_reviews]'
 gh api repos/$REPO/automated-security-fixes --jq .enabled
 gh api repos/$REPO/codeowners/errors --jq '.errors | length'
-gh api repos/$REPO/community/profile --jq '[.files.code_of_conduct_file, .files.contributing, .files.issue_template, .files.license, .files.pull_request_template, .files.readme] | map(. != null) | all'
+gh api repos/$REPO/community/profile --jq .health_percentage
 ```
 
 They should print, in order: `true`; `all_external_contributors`; `["all",true]`;
 `true`; `configured` (it can take a minute); `master`; a list that includes
 `required_reviewers` and `branch_policy`; `["read",false]`; `true`; `0` (no CODEOWNERS errors);
-and `true` (GitHub found the Code of Conduct, contributing guide, issue forms, licence,
-pull request template and README).
+and `100` (GitHub found the Code of Conduct, contributing guide, licence, pull request
+template, README and issue forms; its `issue_template` field stays empty for issue forms,
+which is why the check reads the percentage instead).
 
 Then open the repository in a private browser window, as a visitor: the README
 renders, the **Security** tab offers **Report a vulnerability**, Discussions is on, and
