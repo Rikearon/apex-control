@@ -68,14 +68,20 @@ gh label create hardware --repo $REPO --color 5319e7 --description "A keyboard m
 gh label create protocol --repo $REPO --color 0e8a16 --description "The HID protocol and docs/PROTOCOL.md"
 ```
 
-Then, in the web interface (Settings, Actions, General), leave the default workflow
-permissions read-only, and leave "Allow GitHub Actions to create and approve pull
-requests" off. (Each workflow also declares its own permissions.)
+Keep the token every workflow run receives read-only by default, and do not let
+workflows create or approve pull requests (each workflow also declares its own
+permissions):
+
+```bash
+gh api -X PUT repos/$REPO/actions/permissions/workflow -f default_workflow_permissions=read \
+  -F can_approve_pull_request_reviews=false
+```
 
 ### 3. Security scanning
 
 Code scanning uses GitHub's default setup, so there is no workflow file; it analyses
-the Swift code and the workflows themselves. Secret scanning gets push protection.
+the Swift code and the workflows themselves. Secret scanning gets push protection, and
+Dependabot opens pull requests for security advisories that affect the pinned actions.
 
 ```bash
 gh api -X PATCH repos/$REPO/code-scanning/default-setup -f state=configured \
@@ -84,6 +90,7 @@ gh api -X PATCH repos/$REPO --input - <<'JSON'
 {"security_and_analysis": {"secret_scanning": {"status": "enabled"},
                            "secret_scanning_push_protection": {"status": "enabled"}}}
 JSON
+gh api -X PUT repos/$REPO/automated-security-fixes
 ```
 
 ### 4. Watch the first CI run
@@ -161,15 +168,17 @@ gh api repos/$REPO/code-scanning/default-setup --jq .state
 gh api repos/$REPO/rulesets --jq '.[].name'
 gh api repos/$REPO/environments/release --jq '[.protection_rules[].type]'
 gh api repos/$REPO/actions/permissions/workflow --jq '[.default_workflow_permissions, .can_approve_pull_request_reviews]'
+gh api repos/$REPO/automated-security-fixes --jq .enabled
 gh api repos/$REPO/codeowners/errors --jq '.errors | length'
-gh api repos/$REPO/community/profile --jq '[.files.code_of_conduct_file, .files.contributing, .files.issue_template, .files.license, .files.pull_request_template, .files.readme] | map(. != null) | all'
+gh api repos/$REPO/community/profile --jq .health_percentage
 ```
 
 They should print, in order: `true`; `all_external_contributors`; `["all",true]`;
 `true`; `configured` (it can take a minute); `master`; a list that includes
-`required_reviewers` and `branch_policy`; `["read",false]`; `0` (no CODEOWNERS errors);
-and `true` (GitHub found the Code of Conduct, contributing guide, issue forms, licence,
-pull request template and README).
+`required_reviewers` and `branch_policy`; `["read",false]`; `true`; `0` (no CODEOWNERS errors);
+and `100` (GitHub found the Code of Conduct, contributing guide, licence, pull request
+template, README and issue forms; its `issue_template` field stays empty for issue forms,
+which is why the check reads the percentage instead).
 
 Then open the repository in a private browser window, as a visitor: the README
 renders, the **Security** tab offers **Report a vulnerability**, Discussions is on, and
